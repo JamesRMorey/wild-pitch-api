@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->references('id')->on('users')->nullOnDelete()->cascadeOnUpdate();
             $table->string('name');
+            $table->string('slug')->unique();
             $table->longText('notes')->nullable();
             $table->decimal('latitude', 8, 6);
             $table->decimal('longitude', 8, 6);

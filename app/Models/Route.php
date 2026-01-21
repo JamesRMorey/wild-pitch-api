@@ -10,6 +10,15 @@ use Illuminate\Support\Str;
 
 class Route extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($route) {
+            $route->slug = static::generateSlug($route->user_id, $route->name);
+        });
+    }
+
     protected $fillable = [
         'user_id',
         'name',
@@ -30,6 +39,19 @@ class Route extends Model
         return [
 
         ];
+    }
+
+    public static function generateSlug($userId, $name): string
+    {
+        $baseSlug = $userId . '-' . Str::slug($name);
+        $slug = $baseSlug;
+        $i = 1;
+
+        while (static::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . $i++;
+        }
+
+        return $slug;
     }
 
     public static function search ( array $filters, int $limit=100 ): Collection
