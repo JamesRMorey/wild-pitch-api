@@ -19,7 +19,8 @@ class RouteMarker extends Model
     protected function casts(): array
     {
         return [
-
+            'latitude' => 'float',
+            'longitude' => 'float',
         ];
     }
 
