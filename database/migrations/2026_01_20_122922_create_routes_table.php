@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('status', ['PRIVATE', 'PUBLIC'])->default('PRIVATE');
             $table->decimal('elevation_gain', 10, 2)->nullable();
             $table->decimal('elevation_loss', 10, 2)->nullable();
+            $table->timestamp('published_at')->nullable()->default(null);
             $table->timestamps();
         });
     }

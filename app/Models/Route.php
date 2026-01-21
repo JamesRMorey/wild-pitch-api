@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Traits\UniqueSlug;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,6 +11,8 @@ use Illuminate\Support\Str;
 
 class Route extends Model
 {
+    use UniqueSlug;
+
     protected static function boot()
     {
         parent::boot();
@@ -39,19 +42,6 @@ class Route extends Model
         return [
 
         ];
-    }
-
-    public static function generateSlug($userId, $name): string
-    {
-        $baseSlug = $userId . '-' . Str::slug($name);
-        $slug = $baseSlug;
-        $i = 1;
-
-        while (static::where('slug', $slug)->exists()) {
-            $slug = $baseSlug . '-' . $i++;
-        }
-
-        return $slug;
     }
 
     public static function search ( array $filters, int $limit=100 ): Collection

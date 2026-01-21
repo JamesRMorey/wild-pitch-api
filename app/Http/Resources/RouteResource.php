@@ -26,6 +26,7 @@ class RouteResource extends JsonResource
             'status' => $this->status,
             'elevation_gain' => $this->elevation_gain,
             'elevation_loss' => $this->elevation_loss,
+            'published_at' => $this->published_at,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'markers' => $this->whenLoaded('markers') ? RouteMarkerResource::collection($this->markers) : [],
