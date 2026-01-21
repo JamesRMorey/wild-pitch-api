@@ -15,7 +15,7 @@ class RouteRequest extends FormRequest
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
             'distance' => 'nullable|numeric',
-            'status' => 'required|in:PRIVATE,PUBLIC',
+            'status' => 'sometimes|in:PRIVATE,PUBLIC',
             'elevation_gain' => 'sometimes|nullable|numeric',
             'elevation_loss' => 'sometimes|nullable|numeric',
         ];
