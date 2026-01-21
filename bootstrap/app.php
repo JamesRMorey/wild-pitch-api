@@ -16,6 +16,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->group('api', [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+
+        ]);
+
+        $middleware->alias([
+            'belongs.to.user' => \App\Http\Middleware\BelongsToUser::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
