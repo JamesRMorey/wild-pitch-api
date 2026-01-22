@@ -14,12 +14,7 @@ class RouteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-
-    }
-
-    public function saved (): JsonResponse
+    public function index(): JsonResponse
     {
         $user = auth()->user();
         $routes = $user->routes;
@@ -27,7 +22,15 @@ class RouteController extends Controller
         return response()->json(RouteResource::collection($routes));
     }
 
-    public function search (RouteSearchRequest $request): JsonResponse
+    public function bookmarked(): JsonResponse
+    {
+        $user = auth()->user();
+        $routes = $user->bookmarkedRoutes;
+
+        return response()->json(RouteResource::collection($routes));
+    }
+
+    public function search(RouteSearchRequest $request): JsonResponse
     {
         $data = $request->validated();
         $limit = $data['limit'] ?? 100;
@@ -36,17 +39,22 @@ class RouteController extends Controller
         return response()->json(RouteResource::collection($routes));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function bookmark(Route $route): JsonResponse
     {
+        $user = auth()->user();
+        $user->bookmarkedRoutes()->syncWithoutdetaching($route->id);
 
+        return response()->json(RouteResource::collection($user->bookmarkedRoutes));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function removeBookmark(Route $route): JsonResponse
+    {
+        $user = auth()->user();
+        $user->bookmarkedRoutes()->detach($route);
+
+        return response()->json(RouteResource::collection($user->bookmarkedRoutes));
+    }
+
     public function store(RouteRequest $request): JsonResponse
     {
         $user = auth()->user();
@@ -66,25 +74,6 @@ class RouteController extends Controller
         return response()->json(new RouteResource($route));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(RouteRequest  $request, Route $route): JsonResponse
     {
         $data = $request->validated();
@@ -95,8 +84,6 @@ class RouteController extends Controller
         $route->update($data);
 
         $route->markers()->delete();
-
-        // Add new markers
         foreach ($markers as $marker) {
             $route->markers()->create($marker);
         }
@@ -106,9 +93,6 @@ class RouteController extends Controller
         return response()->json(new RouteResource($route));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Route $route): Response
     {
         $route->delete();
