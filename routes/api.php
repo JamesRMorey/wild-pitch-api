@@ -7,7 +7,7 @@ use App\Http\Controllers\RouteController;
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-Route::get('routes/search', [RouteController::class, 'search'])->name('routes.search');
+Route::post('routes/search', [RouteController::class, 'search'])->name('routes.search');
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('routes', [RouteController::class, 'index'])->name('routes.list');
     Route::post('routes', [RouteController::class, 'store']);
