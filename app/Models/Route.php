@@ -88,7 +88,7 @@ class Route extends Model
         }
 
         $query->where('status', 'PUBLIC');
-        $query->with(['markers', 'user']);
+        $query->with(['user']);
 
         return $query->limit($limit)->get();
     }

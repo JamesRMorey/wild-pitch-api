@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RouteRequest;
 use App\Http\Requests\RouteSearchRequest;
 use App\Http\Resources\RouteResource;
+use App\Http\Resources\RouteSearchResultResource;
 use App\Models\Route;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -41,7 +42,7 @@ class RouteController extends Controller
         $limit = $data['limit'] ?? 100;
         $routes = Route::search($data, min($limit, 100));
 
-        return response()->json(RouteResource::collection($routes));
+        return response()->json(RouteSearchResultResource::collection($routes));
     }
 
     public function bookmark(Route $route): JsonResponse
