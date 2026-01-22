@@ -8,6 +8,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::post('routes/search', [RouteController::class, 'search'])->name('routes.search');
+Route::get('routes/{route}', [RouteController::class, 'find'])->name('routes.find');
+
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('routes', [RouteController::class, 'index'])->name('routes.list');
     Route::post('routes', [RouteController::class, 'store']);

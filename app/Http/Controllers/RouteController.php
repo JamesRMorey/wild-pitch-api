@@ -30,6 +30,11 @@ class RouteController extends Controller
         return response()->json(RouteResource::collection($routes));
     }
 
+    public function find(Route $route): JsonResponse
+    {
+        return response()->json(new RouteResource($route));
+    }
+
     public function search(RouteSearchRequest $request): JsonResponse
     {
         $data = $request->validated();
