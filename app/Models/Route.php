@@ -84,11 +84,10 @@ class Route extends Model
                     [$latitude, $longitude, $latitude]
                 )
                 ->having('distance', '<=', $radius)
-                ->orderBy('distance')
-                ->get()
-                ->toArray();
+                ->orderBy('distance');
         }
 
+        $query->where('status', 'PUBLIC');
         $query->with(['markers', 'user']);
 
         return $query->limit($limit)->get();
