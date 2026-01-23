@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Traits\IsPublic;
 use App\Http\Traits\UniqueSlug;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ use Illuminate\Support\Str;
 
 class Route extends Model
 {
-    use UniqueSlug;
+    use UniqueSlug, IsPublic;
 
     protected static function boot()
     {

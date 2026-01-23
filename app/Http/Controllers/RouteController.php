@@ -101,7 +101,13 @@ class RouteController extends Controller
 
     public function destroy(Route $route): Response
     {
-        $route->delete();
+        if ($route->isPublic()) {
+            $route->user()->dissociate();
+            $route->save();
+        }
+        else {
+            $route->delete();
+        }
 
         return response()->noContent();
     }
