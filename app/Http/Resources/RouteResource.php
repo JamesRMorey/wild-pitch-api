@@ -28,6 +28,7 @@ class RouteResource extends JsonResource
             'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : null,
             'updated_at' => $this->updated_at ? $this->updated_at->format('Y-m-d H:i:s') : null,
             'markers' => $this->whenLoaded('markers') ? RouteMarkerResource::collection($this->markers) : [],
+            'user_id' => $this->user_id,
             'user' => $this->whenLoaded('user') ? new PublicUserResource($this->user) : null,
         ];
     }

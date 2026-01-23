@@ -25,6 +25,7 @@ class RouteSearchResultResource extends JsonResource
             'elevation_loss' => $this->elevation_loss,
             'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : null,
             'updated_at' => $this->updated_at ? $this->updated_at->format('Y-m-d H:i:s') : null,
+            'user_id' => $this->user_id,
             'user' => $this->whenLoaded('user') ? new PublicUserResource($this->user) : null,
         ];
     }
