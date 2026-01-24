@@ -45,12 +45,12 @@ class RouteController extends Controller
         return response()->json(RouteSearchResultResource::collection($routes));
     }
 
-    public function bookmark(Route $route): JsonResponse
+    public function bookmark(Route $route): Response
     {
         $user = auth()->user();
         $user->bookmarkedRoutes()->syncWithoutdetaching($route->id);
 
-        return response()->json(RouteResource::collection($user->bookmarkedRoutes));
+        return response()->noContent();
     }
 
     public function removeBookmark(Route $route): JsonResponse
