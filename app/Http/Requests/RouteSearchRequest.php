@@ -9,7 +9,7 @@ class RouteSearchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'query' => 'sometimes|string',
+            'query' => 'sometimes|nullable|string',
             'latitude' => 'sometimes|numeric|required_with:longitude',
             'longitude' => 'sometimes|numeric|required_with:latitude',
             'radius' => 'sometimes|numeric'
