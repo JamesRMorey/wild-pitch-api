@@ -17,6 +17,7 @@ class RouteResource extends JsonResource
         return [
             'server_id' => $this->id,
             'name' => $this->name,
+            'user_id' => $this->user_id,
             'notes' => $this->notes,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
@@ -25,10 +26,11 @@ class RouteResource extends JsonResource
             'elevation_gain' => $this->elevation_gain,
             'elevation_loss' => $this->elevation_loss,
             'published_at' => $this->published_at ? $this->published_at->format('Y-m-d H:i:s') : null,
+            'type' => $this->type,
+            'difficulty' => $this->difficulty,
             'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : null,
             'updated_at' => $this->updated_at ? $this->updated_at->format('Y-m-d H:i:s') : null,
             'markers' => $this->whenLoaded('markers') ? RouteMarkerResource::collection($this->markers) : [],
-            'user_id' => $this->user_id,
             'user' => $this->whenLoaded('user') ? new PublicUserResource($this->user) : null,
         ];
     }

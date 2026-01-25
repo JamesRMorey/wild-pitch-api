@@ -23,6 +23,8 @@ class RouteSearchResultResource extends JsonResource
             'distance' => $this->distance,
             'elevation_gain' => $this->elevation_gain,
             'elevation_loss' => $this->elevation_loss,
+            'type' => $this->type,
+            'difficulty' => $this->difficulty,
             'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : null,
             'updated_at' => $this->updated_at ? $this->updated_at->format('Y-m-d H:i:s') : null,
             'user_id' => $this->user_id,
