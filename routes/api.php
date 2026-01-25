@@ -24,5 +24,5 @@ Route::middleware('auth:sanctum')->group(function() {
 });
 
 Route::post('routes/search', [RouteController::class, 'search'])->name('routes.search');
-Route::get('routes/featured', [RouteController::class, 'featured'])->name('routes.featured');
+Route::post('routes/featured', [RouteController::class, 'featured'])->name('routes.featured');
 Route::get('routes/{route}', [RouteController::class, 'find'])->name('routes.find');
