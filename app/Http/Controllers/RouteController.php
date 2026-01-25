@@ -23,9 +23,11 @@ class RouteController extends Controller
         return response()->json(RouteResource::collection($routes));
     }
 
-    public function featured(): JsonResponse
+    public function featured(RouteSearchRequest $request): JsonResponse
     {
-        $routes = Route::featured();
+        $data = $request->validated();
+        $limit = $data['limit'] ?? 100;
+        $routes = Route::featured($data, min($limit, 5));
 
         return response()->json(RouteSearchResultResource::collection($routes));
     }
