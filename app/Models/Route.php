@@ -96,6 +96,11 @@ class Route extends Model
         return $query->limit($limit)->get();
     }
 
+    public static function featured ( array $filters, int $limit=5 ): Collection
+    {
+        return self::search($filters, $limit);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

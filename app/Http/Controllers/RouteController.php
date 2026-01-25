@@ -23,6 +23,13 @@ class RouteController extends Controller
         return response()->json(RouteResource::collection($routes));
     }
 
+    public function featured(): JsonResponse
+    {
+        $routes = Route::featured();
+
+        return response()->json(RouteSearchResultResource::collection($routes));
+    }
+
     public function bookmarked(): JsonResponse
     {
         $user = auth()->user();
