@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('routes', function (Blueprint $table) {
-            $table->enum('type', ['CIRCULAR', 'POINT_TO_POINT', 'OUT_AND_BACK', 'UNKNOWN'])->nullable()->after('elevation_loss');
-            $table->enum('difficulty', ['EASY', 'MODERATE', 'CHALLENGING', 'DIFFICULT', 'UNKNOWN'])->nullable()->after('type');
+            $table->enum('type', ['CIRCULAR', 'POINT_TO_POINT', 'OUT_AND_BACK', 'UNKNOWN'])->default('UNKNOWN')->after('elevation_loss');
+            $table->enum('difficulty', ['EASY', 'MODERATE', 'CHALLENGING', 'DIFFICULT', 'UNKNOWN'])->default('UNKNOWN')->after('type');
         });
     }
 
