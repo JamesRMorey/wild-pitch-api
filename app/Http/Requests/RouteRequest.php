@@ -20,6 +20,7 @@ class RouteRequest extends FormRequest
             'type' => 'sometimes|nullable|in:CIRCULAR,POINT_TO_POINT,OUT_AND_BACK,UNKNOWN',
             'elevation_gain' => 'sometimes|nullable|numeric',
             'elevation_loss' => 'sometimes|nullable|numeric',
+            'updated_at' => 'sometimes|date',
         ];
     }
 }

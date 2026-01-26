@@ -35,7 +35,8 @@ class Route extends Model
         'elevation_gain',
         'elevation_loss',
         'type',
-        'difficulty'
+        'difficulty',
+        'updated_at'
     ];
     protected $hidden = [
 
