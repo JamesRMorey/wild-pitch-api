@@ -85,7 +85,7 @@ class RouteController extends Controller
         }
 
         $route->load('markers');
-
+        
         return response()->json(new RouteResource($route));
     }
 

@@ -106,7 +106,7 @@ class Route extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function saves(): BelongsToMany
+    public function bookmarks(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
