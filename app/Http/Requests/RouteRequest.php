@@ -16,8 +16,8 @@ class RouteRequest extends FormRequest
             'longitude' => 'required|numeric|between:-180,180',
             'distance' => 'nullable|numeric',
             'status' => 'sometimes|in:PRIVATE,PUBLIC',
-            'difficulty' => 'required|in:EASY,MODERATE,CHALLENGING,DIFFICULT',
-            'type' => 'required|in:CIRCULAR,POINT_TO_POINT,OUT_AND_BACK,UNKNOWN',
+            'difficulty' => 'sometimes|nullable|in:EASY,MODERATE,CHALLENGING,DIFFICULT,UNKNOWN',
+            'type' => 'sometimes|nullable|in:CIRCULAR,POINT_TO_POINT,OUT_AND_BACK,UNKNOWN',
             'elevation_gain' => 'sometimes|nullable|numeric',
             'elevation_loss' => 'sometimes|nullable|numeric',
         ];
