@@ -28,6 +28,7 @@ class RouteResource extends JsonResource
             'published_at' => $this->published_at ? $this->published_at->format('Y-m-d H:i:s') : null,
             'type' => $this->type ?? 'UNKNOWN',
             'difficulty' => $this->difficulty ?? 'UNKNOWN',
+            'creation_type' => $this->creation_type ?? 'CREATED',
             'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : null,
             'updated_at' => $this->updated_at ? $this->updated_at->format('Y-m-d H:i:s') : null,
             'markers' => $this->whenLoaded('markers') ? RouteMarkerResource::collection($this->markers) : [],

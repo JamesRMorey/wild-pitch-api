@@ -18,6 +18,7 @@ class RouteRequest extends FormRequest
             'status' => 'sometimes|in:PRIVATE,PUBLIC',
             'difficulty' => 'sometimes|nullable|in:EASY,MODERATE,CHALLENGING,DIFFICULT,UNKNOWN',
             'type' => 'sometimes|nullable|in:CIRCULAR,POINT_TO_POINT,OUT_AND_BACK,UNKNOWN',
+            'creation_type' => 'sometimes|nullable|in:CREATED,COPIED,IMPORTED',
             'elevation_gain' => 'sometimes|nullable|numeric',
             'elevation_loss' => 'sometimes|nullable|numeric',
             'updated_at' => 'sometimes|date',

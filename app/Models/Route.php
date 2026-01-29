@@ -35,6 +35,7 @@ class Route extends Model
         'elevation_gain',
         'elevation_loss',
         'type',
+        'creation_type',
         'difficulty',
         'updated_at'
     ];
