@@ -85,7 +85,7 @@ class RouteController extends Controller
         }
 
         $route->load('markers');
-        
+
         return response()->json(new RouteResource($route));
     }
 
@@ -103,6 +103,14 @@ class RouteController extends Controller
             $route->markers()->create($marker);
         }
 
+        $route->load('markers');
+
+        return response()->json(new RouteResource($route));
+    }
+
+    public function makePublic(Route $route): JsonResponse
+    {
+        $route->makePublic();
         $route->load('markers');
 
         return response()->json(new RouteResource($route));

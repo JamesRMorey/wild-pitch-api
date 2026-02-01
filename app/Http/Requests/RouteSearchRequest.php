@@ -12,6 +12,7 @@ class RouteSearchRequest extends FormRequest
             'query' => 'sometimes|nullable|string',
             'latitude' => 'sometimes|numeric|required_with:longitude',
             'longitude' => 'sometimes|numeric|required_with:latitude',
+            'bounds' => 'sometimes|array|min:2|max:2',
             'radius' => 'sometimes|numeric'
         ];
     }

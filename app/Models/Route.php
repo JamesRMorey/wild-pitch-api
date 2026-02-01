@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Http\Traits\IsPublic;
 use App\Http\Traits\UniqueSlug;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -59,6 +60,7 @@ class Route extends Model
         $longitude = $filters['longitude'] ?? null;
         $radius = $filters['radius'] ?? 5000;
         $search = isset($filters['query']) ? Str::replace(' ', '', $filters['query']) : null;
+        $bounds = $filters['bounds'] ?? null;
 
         if ($search) {
             $query->whereRaw("REPLACE(name, ' ', '') LIKE ?", ["%$search%"]);
@@ -91,6 +93,14 @@ class Route extends Model
                 ->having('distance', '<=', $radius)
                 ->orderBy('distance');
         }
+        elseif ($bounds && isset($bounds['ne']) && isset($bounds['sw'])) {
+            $ne = $bounds['ne'];
+            $sw = $bounds['sw'];
+
+            $query->select('*')
+                ->whereBetween('latitude', [$sw[1], $ne[1]])
+                ->whereBetween('longitude', [$sw[0], $ne[0]]);
+        }
 
         $query->where('status', 'PUBLIC');
         $query->with(['user']);
@@ -98,9 +108,20 @@ class Route extends Model
         return $query->limit($limit)->get();
     }
 
-    public static function featured ( array $filters, int $limit=5 ): Collection
+    public static function featured( array $filters, int $limit=5 ): Collection
     {
         return self::search($filters, $limit);
+    }
+
+    public function makePublic(): Route
+    {
+        if ($this->isPublic()) return $this;
+
+        $this->status = 'PUBLIC';
+//        $this->published_at = Carbon::now();
+        $this->save();
+
+        return $this;
     }
 
     public function user(): BelongsTo

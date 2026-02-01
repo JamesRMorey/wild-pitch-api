@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -25,7 +26,7 @@ class RouteResource extends JsonResource
             'status' => $this->status ?? 'PRIVATE',
             'elevation_gain' => $this->elevation_gain,
             'elevation_loss' => $this->elevation_loss,
-            'published_at' => $this->published_at ? $this->published_at->format('Y-m-d H:i:s') : null,
+            'published_at' => $this->published_at ? Carbon::parse($this->published_at)->format('Y-m-d H:i:s') : null,
             'type' => $this->type ?? 'UNKNOWN',
             'difficulty' => $this->difficulty ?? 'UNKNOWN',
             'creation_type' => $this->creation_type ?? 'CREATED',

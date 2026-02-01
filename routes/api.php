@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
     Route::middleware('belongs.to.user:route')->group(function() {
         Route::put('routes/{route}', [RouteController::class, 'update']);
+        Route::put('routes/{route}/public', [RouteController::class, 'makePublic']);
         Route::delete('routes/{route}', [RouteController::class, 'destroy']);
     });
 });
