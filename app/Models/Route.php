@@ -124,6 +124,11 @@ class Route extends Model
         return $this;
     }
 
+    public function belongsToUser (User $user): bool
+    {
+        return $this->user?->id === $user->id;
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

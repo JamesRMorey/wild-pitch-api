@@ -57,6 +57,10 @@ class RouteController extends Controller
     public function bookmark(Route $route): Response
     {
         $user = auth()->user();
+        if ($route->belongsToUser($user)) {
+            return response()->noContent();
+        }
+
         $user->bookmarkedRoutes()->syncWithoutdetaching($route->id);
 
         return response()->noContent();
