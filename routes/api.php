@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\AccountController;
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
@@ -26,4 +27,8 @@ Route::prefix('routes')->group(function() {
     Route::post('search', [RouteController::class, 'search'])->name('routes.search');
     Route::post('featured', [RouteController::class, 'featured'])->name('routes.featured');
     Route::get('{route}', [RouteController::class, 'find'])->name('routes.find');
+});
+
+Route::middleware('auth:sanctum')->group(function() {
+    Route::delete('delete-account', [AccountController::class, 'destroy'])->name('account.delete');
 });
