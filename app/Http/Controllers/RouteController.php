@@ -9,6 +9,7 @@ use App\Http\Resources\RouteSearchResultResource;
 use App\Models\Route;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class RouteController extends Controller
 {
@@ -79,37 +80,41 @@ class RouteController extends Controller
         $user = auth()->user();
         $data = $request->validated();
 
-        $markers = $data['markers'];
-        unset($data['markers']);
+        return DB::transaction(function () use ($user, $data) {
+            $markers = $data['markers'];
+            unset($data['markers']);
 
-        $route = $user->routes()->create($data);
+            $route = $user->routes()->create($data);
 
-        foreach ($markers as $marker) {
-            $route->markers()->create($marker);
-        }
+            foreach ($markers as $marker) {
+                $route->markers()->create($marker);
+            }
 
-        $route->load('markers');
+            $route->load('markers');
 
-        return response()->json(new RouteResource($route));
+            return response()->json(new RouteResource($route));
+        });
     }
 
     public function update(RouteRequest  $request, Route $route): JsonResponse
     {
         $data = $request->validated();
 
-        $markers = $data['markers'];
-        unset($data['markers']);
+        return DB::transaction(function () use ($data, $route) {
+            $markers = $data['markers'];
+            unset($data['markers']);
 
-        $route->update($data);
+            $route->update($data);
 
-        $route->markers()->delete();
-        foreach ($markers as $marker) {
-            $route->markers()->create($marker);
-        }
+            $route->markers()->delete();
+            foreach ($markers as $marker) {
+                $route->markers()->create($marker);
+            }
 
-        $route->load('markers');
+            $route->load('markers');
 
-        return response()->json(new RouteResource($route));
+            return response()->json(new RouteResource($route));
+        });
     }
 
     public function makePublic(Route $route): JsonResponse
