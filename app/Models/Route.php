@@ -61,6 +61,10 @@ class Route extends Model
         $radius = $filters['radius'] ?? 5000;
         $search = isset($filters['query']) ? Str::replace(' ', '', $filters['query']) : null;
         $bounds = $filters['bounds'] ?? null;
+        $difficulty = $filters['difficulty'] ?? null;
+        $maxDistance = $filters['max_distance'] ?? null;
+        $minDistance = $filters['min_distance'] ?? null;
+        $type = $filters['type'] ?? null;
 
         if ($search) {
             $query->whereRaw("REPLACE(name, ' ', '') LIKE ?", ["%$search%"]);
@@ -100,6 +104,24 @@ class Route extends Model
             $query->select('*')
                 ->whereBetween('latitude', [$sw[1], $ne[1]])
                 ->whereBetween('longitude', [$sw[0], $ne[0]]);
+        }
+
+        if ($type) {
+            $query->where('type', $type);
+        }
+
+        if ($difficulty) {
+            $query->where('difficulty', $difficulty);
+        }
+
+        if ($maxDistance && $minDistance) {
+            $query->whereBetween('distance', [$minDistance, $maxDistance]);
+        }
+        else if ($maxDistance) {
+            $query->where('distance', '<=', $maxDistance);
+        }
+        else if ($minDistance) {
+            $query->where('distance', '>=', $minDistance);
         }
 
         $query->where('status', 'PUBLIC');
