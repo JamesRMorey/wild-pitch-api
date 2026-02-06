@@ -9,8 +9,8 @@ trait IsPublic
 
     public function isPublic(): bool
     {
-        return $this->status == 'PUBLIC';
-//            && $this->published_at
-//            && $this->published_at <= Carbon::now();
+        return $this->status == 'PUBLIC'
+            && $this->published_at
+            && $this->published_at <= Carbon::now();
     }
 }

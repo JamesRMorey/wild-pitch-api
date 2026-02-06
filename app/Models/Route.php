@@ -125,6 +125,7 @@ class Route extends Model
         }
 
         $query->where('status', 'PUBLIC');
+        $query->where('published_at', '<=', Carbon::now());
         $query->with(['user']);
 
         return $query->limit($limit)->get();
