@@ -25,6 +25,7 @@ class PointOfInterestResource extends JsonResource
             'status' => $this->status ?? 'PRIVATE',
             'elevation' => $this->elevation,
             'point_type_id' => $this->point_type_id,
+            'point_type' => $this->whenLoaded('point_type') ? new PointTypeResource($this->pointType) : null,
             'published_at' => $this->published_at ? Carbon::parse($this->published_at)->format('Y-m-d H:i:s') : null,
             'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : null,
             'updated_at' => $this->updated_at ? $this->updated_at->format('Y-m-d H:i:s') : null,
