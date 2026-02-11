@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PointOfInterestRequest;
 use App\Http\Requests\RouteRequest;
 use App\Http\Requests\RouteSearchRequest;
+use App\Http\Resources\PointOfInterestResource;
 use App\Http\Resources\RouteResource;
 use App\Http\Resources\RouteSearchResultResource;
+use App\Models\PointOfInterest;
 use App\Models\Route;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
-class RouteController extends Controller
+class PointOfInterestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,61 +22,38 @@ class RouteController extends Controller
     public function index(): JsonResponse
     {
         $user = auth()->user();
-        $routes = $user->routes;
+        $pointsOfInterest = $user->pointsOfInterest;
 
-        return response()->json(RouteResource::collection($routes));
+        return response()->json(PointOfInterestResource::collection($pointsOfInterest));
     }
 
-    public function store(RouteRequest $request): JsonResponse
+    public function store(PointOfInterestRequest $request): JsonResponse
     {
         $user = auth()->user();
         $data = $request->validated();
 
-        return DB::transaction(function () use ($user, $data) {
-            $markers = $data['markers'];
-            unset($data['markers']);
+        $poi = $user->pointsOfInterest()->create($data);
 
-            $route = $user->routes()->create($data);
-
-            foreach ($markers as $marker) {
-                $route->markers()->create($marker);
-            }
-
-            $route->load('markers');
-
-            return response()->json(new RouteResource($route));
-        });
+        return response()->json(new PointOfInterestResource($poi));
     }
 
-    public function update(RouteRequest  $request, Route $route): JsonResponse
+    public function update(PointOfInterestRequest  $request, PointOfInterest $pointOfInterest): JsonResponse
     {
         $data = $request->validated();
 
-        return DB::transaction(function () use ($data, $route) {
-            $markers = $data['markers'];
-            unset($data['markers']);
+        $pointOfInterest->update($data);
 
-            $route->update($data);
-
-            $route->markers()->delete();
-            foreach ($markers as $marker) {
-                $route->markers()->create($marker);
-            }
-
-            $route->load('markers');
-
-            return response()->json(new RouteResource($route));
-        });
+        return response()->json(new PointOfInterestResource($pointOfInterest));
     }
 
-    public function destroy(Route $route): Response
+    public function destroy(PointOfInterest $pointOfInterest): Response
     {
-        if ($route->isPublic()) {
-            $route->user()->dissociate();
-            $route->save();
+        if ($pointOfInterest->isPublic()) {
+            $pointOfInterest->user()->dissociate();
+            $pointOfInterest->save();
         }
         else {
-            $route->delete();
+            $pointOfInterest->delete();
         }
 
         return response()->noContent();

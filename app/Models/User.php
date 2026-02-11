@@ -58,4 +58,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Route::class);
     }
+
+    public function pointsOfInterest(): HasMany
+    {
+        return $this->hasMany(PointOfInterest::class);
+    }
 }
