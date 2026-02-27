@@ -27,7 +27,6 @@ class PointOfInterest extends Model
     }
 
     protected $fillable = [
-        'user_id',
         'point_type_id',
         'name',
         'notes',

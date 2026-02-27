@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\PointOfInterestController;
+use App\Http\Controllers\UploadController;
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
@@ -22,6 +23,7 @@ Route::prefix('routes')->group(function() {
             Route::put('{route}', [RouteController::class, 'update']);
             Route::put('{route}/public', [RouteController::class, 'makePublic']);
             Route::delete('{route}', [RouteController::class, 'destroy']);
+            Route::post('{route}/upload-image', [RouteController::class, 'uploadImage'])->name('routes.upload.image');
         });
     });
 
@@ -47,10 +49,11 @@ Route::prefix('points-of-interest')->group(function() {
     });
 
 //    Route::post('search', [PointOfInterestController::class, 'search'])->name('poi.search');
-//    Route::post('featured', [PointOfInterestController::class, 'featured'])->name('roupoites.featured');
+//    Route::post('featured', [PointOfInterestController::class, 'featured'])->name('poi.featured');
 //    Route::get('{route}', [PointOfInterestController::class, 'find'])->name('poi.find');
 });
 
 Route::middleware('auth:sanctum')->group(function() {
+    Route::post('upload', [UploadController::class, 'upload'])->name('upload');
     Route::delete('delete-account', [AccountController::class, 'destroy'])->name('account.delete');
 });

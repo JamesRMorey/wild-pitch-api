@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RouteRequest;
 use App\Http\Requests\RouteSearchRequest;
+use App\Http\Resources\ImageResource;
 use App\Http\Resources\RouteResource;
 use App\Http\Resources\RouteSearchResultResource;
+use App\Http\Services\UploadService;
 use App\Models\Route;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -136,5 +139,23 @@ class RouteController extends Controller
         $route->load('markers');
 
         return response()->json(new RouteResource($route));
+    }
+
+    public function uploadImage( Request $request, Route $route ): JsonResponse
+    {
+        $user = auth()->user();
+
+        $path = UploadService::base64Image(
+            base64: $request->image,
+            folder: "images/routes/$route->id"
+        );
+
+        $image = $route->images()->create([
+            'user_id' => $user->id,
+            'uri' => env('AWS_S3_PATH') . '/' . $path,
+            'path' => $path
+        ]);
+
+        return response()->json(new ImageResource($image));
     }
 }

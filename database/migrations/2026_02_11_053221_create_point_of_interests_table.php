@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('point_of_interests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->references('id')->on('users')->nullOnDelete()->cascadeOnUpdate();
-            $table->foreignId('point_type_id')->references('id')->on('point_types')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('user_id')->nullable()->constrained()->references('id')->on('users')->nullOnDelete()->cascadeOnUpdate();
+            $table->foreignId('point_type_id')->references('id')->on('point_types')->nullOnDelete()->cascadeOnUpdate();
             $table->string('name');
             $table->string('slug')->unique();
             $table->longText('notes')->nullable();

@@ -34,6 +34,7 @@ class RouteResource extends JsonResource
             'updated_at' => $this->updated_at ? $this->updated_at->format('Y-m-d H:i:s') : null,
             'markers' => $this->whenLoaded('markers') ? RouteMarkerResource::collection($this->markers) : [],
             'user' => $this->whenLoaded('user') ? new PublicUserResource($this->user) : null,
+            'images' => $this->whenLoaded('images') ? ImageResource::collection($this->images) : []
         ];
     }
 }

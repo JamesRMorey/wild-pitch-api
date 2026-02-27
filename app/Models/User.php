@@ -63,4 +63,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(PointOfInterest::class);
     }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(Image::class);
+    }
 }
