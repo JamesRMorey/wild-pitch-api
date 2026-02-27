@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ImageUploadRequest;
 use App\Http\Requests\RouteRequest;
 use App\Http\Requests\RouteSearchRequest;
 use App\Http\Resources\ImageResource;
@@ -141,7 +142,7 @@ class RouteController extends Controller
         return response()->json(new RouteResource($route));
     }
 
-    public function uploadImage( Request $request, Route $route ): JsonResponse
+    public function uploadImage( ImageUploadRequest $request, Route $route ): JsonResponse
     {
         $user = auth()->user();
 

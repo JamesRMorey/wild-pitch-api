@@ -6,6 +6,7 @@ use App\Http\Controllers\RouteController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\PointOfInterestController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\ImageController;
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
@@ -51,6 +52,14 @@ Route::prefix('points-of-interest')->group(function() {
 //    Route::post('search', [PointOfInterestController::class, 'search'])->name('poi.search');
 //    Route::post('featured', [PointOfInterestController::class, 'featured'])->name('poi.featured');
 //    Route::get('{route}', [PointOfInterestController::class, 'find'])->name('poi.find');
+});
+
+Route::prefix('/images')->group(function() {
+    Route::middleware('auth:sanctum')->group(function() {
+        Route::middleware('belongs.to.user:image')->group(function() {
+            Route::delete('/{image}', [ImageController::class, 'destroy'])->name('image.delete');
+        });
+    });
 });
 
 Route::middleware('auth:sanctum')->group(function() {
