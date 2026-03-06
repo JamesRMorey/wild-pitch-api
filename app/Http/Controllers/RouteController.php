@@ -154,7 +154,8 @@ class RouteController extends Controller
         $image = $route->images()->create([
             'user_id' => $user->id,
             'uri' => env('AWS_S3_PATH') . '/' . $path,
-            'path' => $path
+            'path' => $path,
+            'order' => $request->order ?? null
         ]);
 
         return response()->json(new ImageResource($image));

@@ -10,6 +10,7 @@ class ImageUploadRequest extends FormRequest
     {
         return [
             'image' => 'required|string',
+            'order' => 'sometimes|nullable|numeric'
         ];
     }
 }
