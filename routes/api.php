@@ -57,6 +57,7 @@ Route::prefix('points-of-interest')->group(function() {
 Route::prefix('/images')->group(function() {
     Route::middleware('auth:sanctum')->group(function() {
         Route::middleware('belongs.to.user:image')->group(function() {
+            Route::put('/{image}', [ImageController::class, 'update'])->name('image.update');
             Route::delete('/{image}', [ImageController::class, 'destroy'])->name('image.delete');
         });
     });

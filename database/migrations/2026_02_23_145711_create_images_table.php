@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('path');
             $table->string('uri');
             $table->morphs('imageable');
+            $table->bigInteger('order')->nullable()->default(null);
             $table->timestamps();
         });
     }

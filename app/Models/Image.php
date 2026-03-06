@@ -10,7 +10,8 @@ class Image extends Model
     protected $fillable = [
         'user_id',
         'uri',
-        'path'
+        'path',
+        'order'
     ];
 
     public function user(): BelongsTo
