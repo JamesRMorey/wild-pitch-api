@@ -17,6 +17,7 @@ class RouteMarkerResource extends JsonResource
         return [
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
+            'elevation' => $this->elevation
         ];
     }
 }

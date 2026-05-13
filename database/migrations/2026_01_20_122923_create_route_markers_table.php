@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('route_markers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('route_id')->references('id')->on('routes')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->decimal('latitude', 8, 6);
-            $table->decimal('longitude', 8, 6);
+            $table->decimal('latitude', 11, 8);
+            $table->decimal('longitude', 11, 8);
             $table->timestamps();
         });
     }

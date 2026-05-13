@@ -11,6 +11,7 @@ class RouteMarker extends Model
         'route_id',
         'latitude',
         'longitude',
+        'elevation',
     ];
     protected $hidden = [
 
@@ -21,6 +22,7 @@ class RouteMarker extends Model
         return [
             'latitude' => 'float',
             'longitude' => 'float',
+            'elevation' => 'float',
         ];
     }
 

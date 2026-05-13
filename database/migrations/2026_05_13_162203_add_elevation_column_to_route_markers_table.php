@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('route_markers', function (Blueprint $table) {
-            $table->unique(['latitude', 'longitude', 'route_id'], 'latitude_longitude_route_id_unique');
+            $table->decimal('elevation', 8, 2)->after('longitude')->nullable();
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('route_markers', function (Blueprint $table) {
-            $table->dropUnique('latitude_longitude_route_id_unique');
+            $table->dropColumn('elevation');
         });
     }
 };
