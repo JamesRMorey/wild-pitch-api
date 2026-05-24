@@ -2,6 +2,8 @@ FROM php:8.4-fpm
 
 WORKDIR /var/www
 
+COPY php.ini /usr/local/etc/php/php.ini
+
 # Install system dependencies including ImageMagick
 RUN apt-get update && apt-get install -y \
     git \
