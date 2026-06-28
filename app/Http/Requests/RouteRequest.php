@@ -14,7 +14,7 @@ class RouteRequest extends FormRequest
             'markers' => 'required|array',
             'markers.*.latitude' => 'required|numeric',
             'markers.*.longitude' => 'required|numeric',
-            'markers.*.elevation' => 'sometimes|numeric',
+            'markers.*.elevation' => 'sometimes|numeric|nullable',
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
             'distance' => 'nullable|numeric',
