@@ -13,7 +13,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::middleware('auth:sanctum')->group(function() {
-    Route::post('user/complete-tutorial', [UserController::class, 'completeTutorial'])->name('complete-tutorial');
+    Route::get('user', [UserController::class, 'getUser'])->name('user.get');
+    Route::post('user/complete-tutorial', [UserController::class, 'completeTutorial'])->name('user.complete-tutorial');
 });
 
 Route::prefix('routes')->group(function() {
