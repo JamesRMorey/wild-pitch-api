@@ -7,9 +7,14 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\PointOfInterestController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\UserController;
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+Route::middleware('auth:sanctum')->group(function() {
+    Route::post('user/complete-tutorial', [UserController::class, 'completeTutorial'])->name('complete-tutorial');
+});
 
 Route::prefix('routes')->group(function() {
     Route::middleware('auth:sanctum')->group(function() {
