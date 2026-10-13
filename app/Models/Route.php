@@ -141,8 +141,13 @@ class Route extends Model
     {
         if ($this->isPublic()) return $this;
 
+        $user = $this->user;
         $this->status = 'PUBLIC';
-//        $this->published_at = Carbon::now();
+
+        if ($user && $user->canPublishRoutes()) {
+            $this->published_at = Carbon::now();
+        }
+
         $this->save();
 
         return $this;

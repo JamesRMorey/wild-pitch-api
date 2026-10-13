@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -47,8 +48,14 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'completed_tutorial' => 'bool'
+            'completed_tutorial' => 'bool',
+            'role' => Role::class
         ];
+    }
+
+    public function canPublishRoutes(): bool
+    {
+        return in_array($this->role, [Role::ADMIN, Role::FRIEND]);
     }
 
     public function routes(): HasMany
