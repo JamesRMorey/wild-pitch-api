@@ -12,9 +12,7 @@ class RegisterRequest extends FormRequest
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required',
-            'password_confirm' => 'required',
-            'gender' => 'sometimes|string',
-            'device_name' => 'sometimes|string'
+            'password_confirm' => 'required'
         ];
     }
 }
